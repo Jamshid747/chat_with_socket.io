@@ -1,5 +1,8 @@
 import { Sequelize } from "sequelize"
 
+import UserModel from "../models/user.js"
+import MessageModel from "../models/message.js"
+
 const sequelize = new Sequelize({
     username: process.env.PG_USER,
     password: process.env.PG_PASSWORD,
@@ -12,8 +15,18 @@ const sequelize = new Sequelize({
 
 export default async () => {
     try {
+        // connect to database
         await sequelize.authenticate()
         console.log('Database connected')    
+
+        //load models
+        await UserModel({ sequelize })
+        await MessageModel({ sequelize })
+
+        //sync to database
+        await sequelize.sync({ force: true })
+
+        return sequelize
     } catch (error) {
         console.log('Database error', + error.message)
     }
