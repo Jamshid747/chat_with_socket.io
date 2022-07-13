@@ -7,7 +7,11 @@ import "./config/index.js"
 import database from "./config/database.js"
 import routers from "./modules/index.js"
 import mockdata from "./mock.js"
+
+// Middlewares
 import databaseMiddleware from "./middlewares/database.js"
+import errorHandlerMiddleware from "./middlewares/errorHandler.js"
+import loggerMiddleware from "./middlewares/logger.js"
 
 !async function () {
     const app = express()
@@ -29,6 +33,10 @@ import databaseMiddleware from "./middlewares/database.js"
     app.use(fileUpload())
 
     app.use(routers)
+
+    // error handling and logging
+    app.use(errorHandlerMiddleware)
+    app.use(loggerMiddleware)
 
     app.listen(
         process.env.PORT, 

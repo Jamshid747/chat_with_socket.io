@@ -1,7 +1,8 @@
+import { InternalServerError } from "#errors"
 import { Sequelize } from "sequelize"
 
-import UserModel from "../models/user.js"
-import MessageModel from "../models/message.js"
+import UserModel from "#models/user"
+import MessageModel from "#models/message"
 
 const sequelize = new Sequelize({
     username: process.env.PG_USER,
@@ -29,6 +30,7 @@ export default async () => {
         return sequelize
     } catch (error) {
         console.log('Database error', + error.message)
+        throw new InternalServerError(error.message)
     }
 }
 

@@ -11,6 +11,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "imports": {
+    "#errors": "./src/utils/errors.js",
+    "#JWT": "./src/config/jwt.js",
+    "#models/*": "./src/models/*.js"
+  },
   "dependencies": {
     "dotenv": "^16.0.1",
     "ejs": "^3.1.8",
