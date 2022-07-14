@@ -20,10 +20,7 @@ export default async ({ sequelize }) => {
 
         password: {
             type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [4, 16]
-            }
+            allowNull: false
         },
 
         userImg: {

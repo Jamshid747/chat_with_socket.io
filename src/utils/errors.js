@@ -13,15 +13,15 @@ export class ValidationError extends BaseError {
     }
 }
 
-export class ForbiddenError extends BaseError {
+export class AuthenticationError extends BaseError {
     constructor(message) {
-        super(403, message)
+        super(401, message)
     }
 }
 
 export class AuthorizationError extends BaseError {
     constructor(message) {
-        super(401, message)
+        super(403, message)
     }
 }
 

@@ -4,7 +4,7 @@ import JWT from "jsonwebtoken"
 export default {
     sign: payload => {
         try {
-            JWT.sign(payload, process.env.JWT_SECRET, { expiresIn: 60 * 30 })
+            return JWT.sign(payload, process.env.JWT_SECRET, { expiresIn: 60 * 30 })
         } catch (error) {
             throw new InternalServerError(error.message)
         }
@@ -12,7 +12,7 @@ export default {
 
     verify: token => {
         try {
-            JWT.verify(token, process.env.JWT_SECRET)
+            return JWT.verify(token, process.env.JWT_SECRET)
 
         } catch (error) {
             throw new AuthorizationError(error.message)
