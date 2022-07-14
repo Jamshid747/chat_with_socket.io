@@ -1,7 +1,8 @@
 import { AuthenticationError, ValidationError } from "#errors"
-import JWT from "#JWT"
+import { Op } from "sequelize"
 import sha256 from "sha256"
 import path from "path"
+import JWT from "#JWT"
 
 const GET_LOGIN = (req, res, next) => {
     try {
@@ -96,9 +97,27 @@ const POST_REGISTER = async (req, res, next) => {
     }
 }
 
+const GET_USERS = async (req, res, next) => {
+    try {
+       const users = await req.models.User.findAll({
+        where: {
+            userId: {
+                [Op.ne]: req.userId
+            }
+        },
+        attributes: { exclude: ['password'] }
+       }) 
+
+       return res.send(users)
+    } catch (error) {
+        next(error)
+    }
+}
+
 export default {
     POST_REGISTER,
     GET_REGISTER,
     POST_LOGIN,
+    GET_USERS,
     GET_LOGIN
 }
