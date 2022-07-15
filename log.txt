@@ -2,3 +2,5 @@
 /users___GET___function now() { [native code] }___TypeError___Assignment to constant variable.
 /users___GET___function now() { [native code] }___TypeError___Cannot read properties of undefined (reading 'findOne')
 /users___GET___function now() { [native code] }___ReferenceError___Op is not defined
+/messages?userId=1___GET___function now() { [native code] }___SequelizeDatabaseError___столбец Message.messagesFrom не существует
+/messages___POST___1657887061101___TypeError___The "path" argument must be of type string. Received an instance of Array

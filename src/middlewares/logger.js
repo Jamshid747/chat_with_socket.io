@@ -4,7 +4,7 @@ import fs from "fs"
 export default (error, req, res, next) => {
     fs.appendFileSync(
         path.join(process.cwd(), 'log.txt'),
-        `${req.url}___${req.method}___${Date.now}___${error.name}___${error.message}\n`
+        `${req.url}___${req.method}___${Date.now()}___${error.name}___${error.message}\n`
     )
 
     return res.status(500).json({
