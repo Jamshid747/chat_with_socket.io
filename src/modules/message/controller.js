@@ -1,8 +1,7 @@
-import { AuthenticationError, ValidationError } from "#errors"
+import { AuthenticationError, ValidationError, NotFoundError, BadRequestError } from "#errors"
 import { Op } from "sequelize"
-import sha256 from "sha256"
 import path from "path"
-import JWT from "#JWT"
+import fs from "fs/promises"
 
 const GET_MESSAGES = async (req, res, next) => {
     try {
@@ -105,7 +104,106 @@ const POST_MESSAGES = async (req, res, next) => {
     }
 }
 
+const PUT_MESSAGES = async (req, res, next) => {
+    try {
+        const { messageBody } = req.body
+        const { messageId } = req.params
+
+        const message = await req.models.Message.findOne({ where: { messageId } })
+
+        if(!message) {
+            throw new NotFoundError('There is no such message!')
+        }
+
+        if(message.messageFrom != req.userId || 
+            message.messageType != 'plain/text'
+        ) {
+            throw new BadRequestError('The message can not be changed!')
+        }
+
+        await req.models.Message.update({ messageBody }, {
+            where: {
+               messageId
+            }
+        })
+
+        await message.reload()
+
+        message.messageFrom = await req.models.User.findOne({
+            where: {
+                userId: message.messageFrom
+            },
+            attributes: { exclude: ['password'] }
+        })
+
+        message.messageTo = await req.models.User.findOne({
+            where: {
+                userId: message.messageTo
+            },
+            attributes: { exclude: ['password'] }
+        })
+
+        return res.status(200).json({
+            status: 200,
+            message: "The message is updated!",
+            data: message
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+const DELETE_MESSAGES = async (req, res, next) => {
+    try {
+        const { messageId } = req.params
+
+        const message = await req.models.Message.findOne({ where: { messageId } })
+
+        if(!message) {
+            throw new NotFoundError('There is no such message!')
+        }
+
+        if(message.messageFrom != req.userId) {
+            throw new BadRequestError('The message can not be deleted!')
+        }
+
+        await req.models.Message.destroy({
+            where: {
+               messageId
+            }
+        })
+
+        if(message.messageType != 'plain/text') {
+            await fs.unlink(path.join(process.cwd(), 'uploads', message.messageBody))
+        }
+
+        message.messageFrom = await req.models.User.findOne({
+            where: {
+                userId: message.messageFrom
+            },
+            attributes: { exclude: ['password'] }
+        })
+
+        message.messageTo = await req.models.User.findOne({
+            where: {
+                userId: message.messageTo
+            },
+            attributes: { exclude: ['password'] }
+        })
+
+        return res.status(200).json({
+            status: 200,
+            message: "The message is deleted!",
+            data: message
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
 export default {
+    DELETE_MESSAGES,
     POST_MESSAGES,
-    GET_MESSAGES
+    GET_MESSAGES,
+    PUT_MESSAGES
 }

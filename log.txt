@@ -4,3 +4,5 @@
 /users___GET___function now() { [native code] }___ReferenceError___Op is not defined
 /messages?userId=1___GET___function now() { [native code] }___SequelizeDatabaseError___столбец Message.messagesFrom не существует
 /messages___POST___1657887061101___TypeError___The "path" argument must be of type string. Received an instance of Array
+/messages/___GET___1658229677402___Error___WHERE parameter "message_to" has invalid "undefined" value
+/messages/4___DELETE___1658234460640___Error___ENOENT: no such file or directory, unlink '/home/jamshid/jamshid/PROJECT/chat_socket/uploads/video.mp4'

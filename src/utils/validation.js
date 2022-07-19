@@ -32,3 +32,24 @@ export const POST_MESSAGE_VALIDATION = Joi.object({
         })  
     }),
 })
+
+export const PUT_MESSAGE_VALIDATION = Joi.object({
+    params: Joi.object({
+        messageId: Joi.number().required()
+    }),
+    body: Joi.object({
+        messageBody: Joi.string().max(150).required().custom((value, helper) => {
+            if(value.includes('<') && value.includes('>')) {
+                return helper.message('messageBody must not be HTML content!')
+            } else {
+                return true
+            }
+        })  
+    }),
+})
+
+export const DELETE_MESSAGE_VALIDATION = Joi.object({
+    params: Joi.object({
+        messageId: Joi.number().required()
+    })
+})
