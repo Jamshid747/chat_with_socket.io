@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        const token = window.localStorage.getItem('token')
+        if(token) {
+            window.location = '/home'
+        }
+    </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +22,7 @@
         <div class="wrapper">
             <h1 class="title">Sign up</h1>
             <span id="errorMessage" style="color: red; height: 25px;"></span>
-            <form action="#" class="site-form">
+            <form id="form" action="#" class="site-form">
                 <label>
                     <span class="zmdi zmdi-account"></span>
                     <input type="text" id="usernameInput" placeholder="Your name" required>
@@ -38,6 +44,7 @@
         </div>
     </div>
     
+    <script src="./js/utils.js"></script>
     <script src="./js/registration.js"></script>
 </body>
 </html>
