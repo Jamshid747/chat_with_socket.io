@@ -6,3 +6,5 @@
 /messages___POST___1657887061101___TypeError___The "path" argument must be of type string. Received an instance of Array
 /messages/___GET___1658229677402___Error___WHERE parameter "message_to" has invalid "undefined" value
 /messages/4___DELETE___1658234460640___Error___ENOENT: no such file or directory, unlink '/home/jamshid/jamshid/PROJECT/chat_socket/uploads/video.mp4'
+/profileAvatar/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImFnZW50IjoiUG9zdG1hblJ1bnRpbWUvNy4yOS4yIiwiaWF0IjoxNjU4NzM3NTE3LCJleHAiOjE2NTg4MjM5MTd9.QBj7BEwp3Owbdn-EvIyGRNMtWQOQ9rCs58qPa3261Xg___GET___1658737636318___TypeError___Cannot read properties of undefined (reading 'findOne')
+/profileAvatar/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImFnZW50IjoiUG9zdG1hblJ1bnRpbWUvNy4yOS4yIiwiaWF0IjoxNjU4NzM3NTE3LCJleHAiOjE2NTg4MjM5MTd9.QBj7BEwp3Owbdn-EvIyGRNMtWQOQ9rCs58qPa3261Xg___GET___1658737686480___TypeError___req.sendFile is not a function
