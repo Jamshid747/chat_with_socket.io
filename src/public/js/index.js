@@ -1,3 +1,9 @@
+const socket = io({
+    auth: {
+        token: window.localStorage.getItem('token')
+    }
+})
+
 let lastSelectedUserId;
 
 async function renderUsers(users) {
@@ -9,6 +15,7 @@ async function renderUsers(users) {
         li.innerHTML = `
             <img src="${'/file/' + token + '/' + user.userImg}" alt="profile-picture">
             <p>${user.username}</p>
+            <span data-id="${user.userId}" class="${user.socketId ? 'online-indicator' : ''}"></span>
         `
         chatsList.append(li)
 
@@ -170,6 +177,26 @@ uploadsInput.onchange = event => {
     form.reset()
 }
 
+const userId = window.localStorage.getItem('token')
 
 renderProfileData()
 getUsers()
+
+socket.on('users:exit', () => {
+    window.localStorage.clear()
+    window.location = '/login'
+})
+
+socket.on('users:connected', ({ userId }) => {
+    const span = document.querySelector(`.chats-item span[data-id="${userId}"]`)
+    span.classList.add('online-indicator')
+})
+
+socket.on('user:disconnected', ({ userId }) => {
+    const span = document.querySelector(`.chats-item span[data-id="${userId}"]`)
+    span.classList.remove('online-indicator')
+})
+
+socket.on('messages:new message', (message) => {
+    renderMessages([message])
+})

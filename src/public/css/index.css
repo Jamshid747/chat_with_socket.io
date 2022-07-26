@@ -55,6 +55,7 @@ button:hover {
     font-weight: 500;
 }
 .chats-item {
+    position: relative;
     display: flex;
     align-items: center;
     padding: 10px 25px;
@@ -69,6 +70,16 @@ button:hover {
     margin-left: 10px;
     font-size: 18px;
     font-weight: 500;
+}
+.chats-item .online-indicator {
+    position: absolute;
+    display: inline-block;
+    left: 19%;
+    top: 65%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: lime;
 }
 .chat-side {
     width: 54%;
@@ -203,7 +214,18 @@ input[type="file"] {
     opacity: 0.7;
     font-weight: 500;
 }
-.msg-from > img {
+
+.msg-from {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.msg-from img {
+    margin-right: 0;
+    margin-left: 20px;
+}
+
+.msg-from > text {
     margin-left: auto;
 }
 

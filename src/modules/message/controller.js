@@ -94,6 +94,8 @@ const POST_MESSAGES = async (req, res, next) => {
             attributes: { exclude: ['password'] }
         })
 
+        process.io.to(record.messageTo.socketId).emit('messages:new message', record)
+
         return res.status(200).json({
             status: 200,
             message: "The message is sent!",
