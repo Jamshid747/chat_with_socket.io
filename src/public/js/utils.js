@@ -1,10 +1,10 @@
-const request = async (rout, method, body) => {
+const request = async (rout, method = 'GET', body) => {
     const headers = {
         token: window.localStorage.getItem('token')
     }
     if(!(body instanceof FormData)) {
         headers['Content-Type'] = 'application/json'
-        body = JSON.stringify(body || null)
+        body = JSON.stringify(body)
     }
     let response = await fetch(rout, {
         method,
